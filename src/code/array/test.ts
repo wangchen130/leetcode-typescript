@@ -1,4 +1,19 @@
-import { removeDuplicates, removeElement, searchInsert, plusOne, canPlaceFlowers, hasGroupsSizeX, canThreePartsEqualSum } from './index';
+import {
+  removeDuplicates,
+  removeElement,
+  searchInsert,
+  plusOne,
+  canPlaceFlowers,
+  hasGroupsSizeX,
+  canThreePartsEqualSum,
+  validMountainArray,
+  thirdMax,
+  findErrorNums,
+  checkIfExist,
+  minNumberOfHours,
+  findMaxAverageBySlidingWindow,
+  findMaxAverageByPreSum,
+} from './index';
 
 // 26. 删除有序数组中的重复项
 
@@ -80,4 +95,98 @@ export const testCanThreePartsEqualSum = () => {
   const arr3 = [3, 3, 6, 5, -2, 2, 5, 1, -9, 4];
   console.log('arr=', arr3);
   console.log('结果为：', canThreePartsEqualSum(arr3));
+};
+
+// 941. 有效的山脉数组
+export const testValidMountainArray = () => {
+  console.log('941. 有效的山脉数组:');
+  const arr1 = [2, 1];
+  console.log('arr=', arr1);
+  console.log('结果为：', validMountainArray(arr1));
+  const arr2 = [3, 5, 5];
+  console.log('arr=', arr2);
+  console.log('结果为：', validMountainArray(arr2));
+  const arr3 = [0, 3, 2, 1];
+  console.log('arr=', arr3);
+  console.log('结果为：', validMountainArray(arr3));
+};
+
+// 414. 第三大的数
+export const testThirdMax = () => {
+  console.log('414. 第三大的数:');
+  const nums1 = [3, 2, 1];
+  console.log('nums=', nums1);
+  console.log('结果为：', thirdMax(nums1));
+  const nums2 = [1, 2];
+  console.log('nums=', nums2);
+  console.log('结果为：', thirdMax(nums2));
+  const nums3 = [2, 2, 3, 1];
+  console.log('nums=', nums3);
+  console.log('结果为：', thirdMax(nums3));
+};
+
+// 645. 错误的集合
+
+export const testFindErrorNums = () => {
+  console.log('645. 错误的集合:');
+  const nums1 = [1, 2, 2, 4];
+  console.log('nums=', nums1);
+  console.log('结果为：', findErrorNums(nums1));
+  const nums2 = [1, 1];
+  console.log('nums=', nums2);
+  console.log('结果为：', findErrorNums(nums2));
+};
+
+// 1346. 检查整数及其两倍数是否存在
+export const testCheckIfExist = () => {
+  console.log('1346. 检查整数及其两倍数是否存在');
+  const arr1 = [10, 2, 5, 3];
+  console.log('arr=', arr1);
+  console.log('结果为：', checkIfExist(arr1));
+  const arr2 = [7, 1, 14, 11];
+  console.log('arr=', arr2);
+  console.log('结果为：', checkIfExist(arr2));
+  const arr3 = [3, 1, 7, 11];
+  console.log('arr=', arr3);
+  console.log('结果为：', checkIfExist(arr3));
+};
+
+// 2383. 赢得比赛需要的最少训练时长
+export const testMinNumberOfHours = () => {
+  console.log('2383. 赢得比赛需要的最少训练时长');
+  const initialEnergy1 = 5;
+  const initialExperience1 = 3;
+  const energy1 = [1, 4, 3, 2];
+  const experience1 = [2, 6, 3, 1];
+  console.log('initialEnergy=', initialEnergy1);
+  console.log('initialExperience=', initialExperience1);
+  console.log('energy=', energy1);
+  console.log('experience=', experience1);
+  console.log('结果为：', minNumberOfHours(initialEnergy1, initialExperience1, energy1, experience1));
+  const initialEnergy2 = 2;
+  const initialExperience2 = 4;
+  const energy2 = [1];
+  const experience2 = [3];
+  console.log('initialEnergy=', initialEnergy2);
+  console.log('initialExperience=', initialExperience2);
+  console.log('energy=', energy2);
+  console.log('experience=', experience2);
+  console.log('结果为：', minNumberOfHours(initialEnergy2, initialExperience2, energy2, experience2));
+};
+
+// 643. 子数组最大平均数 I
+export const testFindMaxAverage = () => {
+  console.log(' 643. 子数组最大平均数 I');
+  const nums1 = [1, 12, -5, -6, 50, 3];
+  const k1 = 4;
+  console.log('nums=', nums1);
+  console.log('k=', k1);
+  console.log('滑动窗口解法结果为：', findMaxAverageBySlidingWindow(nums1, k1));
+  console.log('通过preSUm解法的结果为：', findMaxAverageByPreSum(nums1, k1));
+  const nums2 = [5];
+  const k2 = 1;
+  console.log('nums=', nums2);
+  console.log('k=', k2);
+  console.log('滑动窗口解法结果为：', findMaxAverageBySlidingWindow(nums2, k2));
+  console.log('通过preSUm解法的结果为：', findMaxAverageByPreSum(nums2, k2));
 };
