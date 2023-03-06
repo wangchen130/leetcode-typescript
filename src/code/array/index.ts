@@ -417,3 +417,184 @@ export function findMaxAverageByPreSum(nums: number[], k: number): number {
   }
   return maxSum / k;
 }
+
+// 219. 存在重复元素 II
+export function containsNearbyDuplicateByHashmap(nums: number[], k: number): boolean {
+  const len = nums.length;
+  const map = new Map();
+  for (let i = 0; i < len; i++) {
+    const num = nums[i];
+    if (map.has(num) && map.get(num) !== i && Math.abs(map.get(num) - i) <= k) return true;
+    map.set(num, i);
+  }
+  return false;
+}
+
+export function containsNearbyDuplicateBySlidingWindow(nums: number[], k: number): boolean {
+  const set = new Set<number>();
+  const len = nums.length;
+  for (let i = 0; i < len; i++) {
+    if (i > k) set.delete(nums[i - k - 1]);
+    if (set.has(nums[i])) return true;
+    set.add(nums[i]);
+  }
+  return false;
+}
+
+// 面试题 16.11. 跳水板
+export function divingBoard(shorter: number, longer: number, k: number): number[] {
+
+  if (k <= 0) return [];
+  if (shorter === longer) return [k * longer];
+  const res = [];
+  for (let i = 0; i <= k; i++) {
+    res.push(i * longer + (k - i) * shorter);
+  }
+  return res;
+}
+// 1566. 重复至少 K 次且长度为 M 的模式
+export function containsPattern(arr: number[], m: number, k: number): boolean {
+  const str = arr.join('');
+  const len = str.length;
+  let substring = arr.slice(0, m).join('');
+  for (let i = m; i < len; i++) {
+    if (str.includes(substring.repeat(k))) return true;
+    substring = substring.slice(String(arr[i - m]).length) + String(arr[i]);
+  }
+  return false;
+}
+
+/**
+ * @description 面试题61. 扑克牌中的顺子
+ * 解题思路：
+ *  1)除大小王外，所有牌 无重复 ；
+ *  2)设此 5 张牌中最大的牌为 max ，最小的牌为min （大小王除外），则需满足： max−min < 5
+ * @param nums
+ */
+export function isStraight(nums: number[]): boolean {
+  let min = 14;
+  let max = -1;
+  const len = nums.length;
+  const set = new Set<number>();
+  for (const num of nums) {
+    if (num !== 0) {
+      if (set.has(num)) return false;
+      set.add(num);
+      if (num < min) min = num;
+      if (num > max) max = num;
+    }
+  }
+  return max - min < len;
+}
+// 1232. 缀点成线
+
+export function checkStraightLine(coordinates: number[][]): boolean {
+  const len = coordinates.length;
+  // 一个点无法构成一条确定的直线
+  if (len < 2) return false;
+  // 两个点一定能共线
+  if (len === 2) return true;
+  // 斜率
+  let slope;
+  if (coordinates[1][0] === coordinates[0][0]) { // 垂直于 x 轴的直线，所有x应该相等，斜率为无穷大
+    slope = Infinity;
+  } else {
+    // 注意：斜率有正有负，所以不能取绝绝对值
+    slope = (coordinates[1][1] - coordinates[0][1]) / (coordinates[1][0] - coordinates[0][0]);
+  }
+  for (let i = 1; i < len; i++) {
+    let [x, y] = coordinates[i];
+    if (slope === Infinity) {
+      if (x !== coordinates[0][0]) return false;
+    } else {
+      const k = (y - coordinates[0][1]) / (x - coordinates[0][0]);
+      if (k !== slope) return false;
+    }
+  }
+  return true;
+}
+
+/**
+ * @description 通过向量进行求解
+ * 例如：
+ *     已知三点A(1,2),B(3,4),C(6,7)，求这三点是否在—条直线?
+ *      解：
+ *         向量AB = (3，4)−(1，2)＝(2，2)
+ *         向量AC = (6，7)−(3，4)＝(3，3)
+ *         向量AB × 向量AC = (2 × 3) - (3 × 2) = 0
+ *         所以AB和AC平行
+ *         所以A,B,C三点共
+ * @param coordinates
+ */
+export function checkStraightLineByVector(coordinates: number[][]): boolean {
+  const len = coordinates.length;
+  // 一个点无法构成一条确定的直线
+  if (len < 2) return false;
+  // 两个点一定能共线
+  if (len === 2) return true;
+  const [x0, y0] = [coordinates[1][0] - coordinates[0][0], coordinates[1][1] - coordinates[0][1]];
+
+  for (let i = 2; i < len; i++) {
+    const [x1, y1] = coordinates[i];
+    const x = x1 - coordinates[0][0];
+    const y = y1 - coordinates[0][1];
+    if (x0 * y - y0 * x !== 0) return false;
+  }
+  return true;
+}
+
+// 747. 至少是其他数字两倍的最大数
+export function dominantIndex(nums: number[]): number {
+  const len = nums.length;
+  if (len === 0) return -1;
+  if (len === 1) return 0;
+  let max = -1;
+  let secondMax = -1;
+  let maxIndex = -1;
+  for (let i = 0; i < nums.length; i++) {
+    let num = nums[i];
+    if (num > max) {
+      secondMax = max;
+      max = num;
+      maxIndex = i;
+    } else if (num > secondMax) {
+      secondMax = num;
+    }
+  }
+  maxIndex = (max / secondMax) >= 2 ? maxIndex : -1;
+  return maxIndex;
+}
+// 989. 数组形式的整数加法
+export function addToArrayForm(num: number[], k: number): number[] {
+  return (BigInt(num.join('')) + BigInt(k)).toString().split('').map(item => Number(item));
+}
+
+// 744. 寻找比目标字母大的最小字母
+export function nextGreatestLetter(letters: string[], target: string): string {
+  let index = 0;
+  const len = letters.length;
+  const targetCode = target.charCodeAt(0);
+  for (; index < len; index++) {
+    let letterCode = letters[index].charCodeAt(0);
+    if (letterCode > targetCode) {
+      break;
+    }
+  }
+  index = index >= len ? 0 : index;
+  return letters[index];
+}
+// 2099. 找到和最大的长度为 K 的子序列
+export function maxSubsequence(nums: number[], k: number): number[] {
+  if (nums.length < k) return nums;
+  const numsContainIndex = nums.map((num, index) => ({ value: num, index }));
+  numsContainIndex.sort((a, b) => b.value - a.value);
+  const numsKLength = numsContainIndex.slice(0, k);
+  return numsKLength.sort((a, b) => a.index - b.index).map(item => item.value);
+}
+// 1037. 有效的回旋镖
+export function isBoomerang(points: number[][]): boolean {
+  const [[x1, y1], [x2, y2], [x3, y3]] = points;
+  const vector1 = [x2 - x1, y2 - y1];
+  const vector2 = [x3 - x1, y3 - y1];
+  return vector1[0] * vector2[1] - vector1[1] * vector2[0] !== 0;
+}

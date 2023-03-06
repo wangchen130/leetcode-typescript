@@ -13,6 +13,17 @@ import {
   minNumberOfHours,
   findMaxAverageBySlidingWindow,
   findMaxAverageByPreSum,
+  containsNearbyDuplicateByHashmap,
+  containsNearbyDuplicateBySlidingWindow,
+  divingBoard,
+  containsPattern,
+  isStraight,
+  checkStraightLine,
+  dominantIndex,
+  addToArrayForm,
+  nextGreatestLetter,
+  maxSubsequence,
+  isBoomerang
 } from './index';
 
 // 26. 删除有序数组中的重复项
@@ -189,4 +200,180 @@ export const testFindMaxAverage = () => {
   console.log('k=', k2);
   console.log('滑动窗口解法结果为：', findMaxAverageBySlidingWindow(nums2, k2));
   console.log('通过preSUm解法的结果为：', findMaxAverageByPreSum(nums2, k2));
+};
+
+// 219. 存在重复元素 II
+export const testContainsNearbyDuplicate = () => {
+  console.log('219. 存在重复元素 II:');
+  const nums1 = [1, 2, 3, 1];
+  const k1 = 3;
+  console.log('nums=', nums1);
+  console.log('k=', k1);
+  console.log('使用hashmap求解结果为：', containsNearbyDuplicateByHashmap(nums1, k1));
+  console.log('使用滑动窗口求解结果为：', containsNearbyDuplicateBySlidingWindow(nums1, k1));
+  const nums2 = [1, 0, 1, 1];
+  const k2 = 1;
+  console.log('nums=', nums2);
+  console.log('k=', k2);
+  console.log('使用hashmap求解结果为：', containsNearbyDuplicateByHashmap(nums2, k2));
+  console.log('使用滑动窗口求解结果为：', containsNearbyDuplicateBySlidingWindow(nums2, k2));
+  const nums3 = [1, 2, 3, 1, 2, 3];
+  const k3 = 2;
+  console.log('nums=', nums3);
+  console.log('k=', k3);
+  console.log('使用hashmap求解结果为：', containsNearbyDuplicateByHashmap(nums3, k3));
+  console.log('使用滑动窗口求解结果为：', containsNearbyDuplicateBySlidingWindow(nums3, k3));
+};
+
+// 面试题 16.11. 跳水板
+export const testDivingBoard = () => {
+  console.log('面试题 16.11. 跳水板:');
+  const shorter = 1;
+  const longer = 2;
+  const k = 3;
+  console.log('shorter=', shorter);
+  console.log('longer=', longer);
+  console.log('k=', k);
+  console.log('结果为：', divingBoard(shorter, longer, k));
+};
+// 1566. 重复至少 K 次且长度为 M 的模式
+export const testContainsPattern = () => {
+  console.log('1566. 重复至少 K 次且长度为 M 的模式');
+  const arr1 = [1, 2, 4, 4, 4, 4];
+  const m1 = 1;
+  const k1 = 3;
+  console.log('arr=', arr1);
+  console.log('m=', m1);
+  console.log('k=', k1);
+  console.log('结果为：', containsPattern(arr1, m1, k1));
+  const arr2 = [1, 2, 1, 2, 1, 1, 1, 3];
+  const m2 = 2;
+  const k2 = 2;
+  console.log('arr=', arr2);
+  console.log('m=', m2);
+  console.log('k=', k2);
+  console.log('结果为：', containsPattern(arr2, m2, k2));
+  const arr3 = [1, 2, 1, 2, 1, 3];
+  const m3 = 2;
+  const k3 = 3;
+  console.log('arr=', arr3);
+  console.log('m=', m3);
+  console.log('k=', k3);
+  console.log('结果为：', containsPattern(arr3, m3, k3));
+  const arr4 = [1, 2, 3, 1, 2];
+  const m4 = 2;
+  const k4 = 2;
+  console.log('arr=', arr4);
+  console.log('m=', m4);
+  console.log('k=', k4);
+  console.log('结果为：', containsPattern(arr4, m4, k4));
+  const arr5 = [2, 2, 2, 2];
+  const m5 = 2;
+  const k5 = 3;
+  console.log('arr=', arr5);
+  console.log('m=', m5);
+  console.log('k=', k5);
+  console.log('结果为：', containsPattern(arr5, m5, k5));
+};
+
+// 面试题61. 扑克牌中的顺子
+export const testIsStraight = () => {
+  console.log(' 面试题61. 扑克牌中的顺子:');
+  const nums1 = [1, 2, 3, 4, 5];
+  console.log('nums=', nums1);
+  console.log('结果为：', isStraight(nums1));
+  const nums2 = [0, 0, 1, 2, 5];
+  console.log('nums=', nums2);
+  console.log('结果为：', isStraight(nums2));
+};
+// 1232. 缀点成线
+export const testCheckStraightLine = () => {
+  console.log('1232. 缀点成线:');
+  const coordinates1 = [[1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7]];
+  console.log('coordinates=', coordinates1);
+  console.log('结果为：', checkStraightLine(coordinates1));
+  const coordinates2 = [[1, 1], [2, 2], [3, 4], [4, 5], [5, 6], [7, 7]];
+  console.log('coordinates=', coordinates2);
+  console.log('结果为：', checkStraightLine(coordinates2));
+};
+// 747. 至少是其他数字两倍的最大数
+export const testDominantIndex = () => {
+  console.log('747. 至少是其他数字两倍的最大数');
+  const nums1 = [3, 6, 1, 0];
+  console.log('nums=', nums1);
+  console.log('结果为：', dominantIndex(nums1));
+  const nums2 = [1, 2, 3, 4];
+  console.log('nums=', nums2);
+  console.log('结果为：', dominantIndex(nums2));
+  const nums3 = [1];
+  console.log('nums=', nums3);
+  console.log('结果为：', dominantIndex(nums3));
+};
+
+// 989. 数组形式的整数加法
+export const testAddToArrayForm = () => {
+  console.log('989. 数组形式的整数加法:');
+  const num1 = [1, 2, 0, 0];
+  const k1 = 34;
+  console.log('num=', num1);
+  console.log('k=', k1);
+  console.log('结果为：', addToArrayForm(num1, k1));
+  const num2 = [2, 7, 4];
+  const k2 = 181;
+  console.log('num=', num2);
+  console.log('k=', k2);
+  console.log('结果为：', addToArrayForm(num2, k2));
+  const num3 = [2, 1, 5];
+  const k3 = 806;
+  console.log('num=', num3);
+  console.log('k=', k3);
+  console.log('结果为：', addToArrayForm(num3, k3));
+};
+// 744. 寻找比目标字母大的最小字母
+export const testNextGreatestLetter = () => {
+  console.log('744. 寻找比目标字母大的最小字母');
+  const letters1 = ['c', 'f', 'j'];
+  const target1 = 'a';
+  console.log('letters=', letters1);
+  console.log('target=', target1);
+  console.log('结果为：', nextGreatestLetter(letters1, target1));
+  const letters2 = ['c', 'f', 'j'];
+  const target2 = 'c';
+  console.log('letters=', letters2);
+  console.log('target=', target2);
+  console.log('结果为：', nextGreatestLetter(letters2, target2));
+  const letters3 = ['x', 'x', 'y', 'y'];
+  const target3 = 'z';
+  console.log('letters=', letters3);
+  console.log('target=', target3);
+  console.log('结果为：', nextGreatestLetter(letters3, target3));
+};
+// 2099. 找到和最大的长度为 K 的子序列
+export const testMaxSubsequence = () => {
+  console.log('2099. 找到和最大的长度为 K 的子序列:');
+  const nums1 = [2, 1, 3, 3];
+  const k1 = 2;
+  console.log('nums=', nums1);
+  console.log('k=', k1);
+  console.log('结果为：', maxSubsequence(nums1, k1));
+  const nums2 = [-1, -2, 3, 4];
+  const k2 = 3;
+  console.log('nums=', nums2);
+  console.log('k=', k2);
+  console.log('结果为：', maxSubsequence(nums2, k2));
+  const nums3 = [3, 4, 3, 3];
+  const k3 = 2;
+  console.log('nums=', nums3);
+  console.log('k=', k3);
+  console.log('结果为：', maxSubsequence(nums3, k3));
+};
+// 1037. 有效的回旋镖
+export const testIsBoomerang = () => {
+  console.log(' 1037. 有效的回旋镖');
+  const points1 = [[1, 1], [2, 3], [3, 2]];
+  console.log('points=', points1);
+  console.log('结果为：', isBoomerang(points1));
+  const points2 = [[1, 1], [2, 2], [3, 3]];
+  console.log('points=', points2);
+  console.log('结果为：', isBoomerang(points2));
 };
