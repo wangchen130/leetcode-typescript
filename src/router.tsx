@@ -48,7 +48,7 @@ const Routers = ({ history, app }: any) => {
             <App>
               <Switch>
                 {renderRoutes(adminRoutes)}
-                <Route exact path="/" render={() => <Redirect to="/leetcode/array" />} />
+                <Route exact path="/" render={() => <Redirect to="/first/array1" />} />
                 <Route component={error} />
               </Switch>
             </App>

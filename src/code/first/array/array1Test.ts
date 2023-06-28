@@ -23,8 +23,8 @@ import {
   addToArrayForm,
   nextGreatestLetter,
   maxSubsequence,
-  isBoomerang
-} from './index';
+  isBoomerang, sortedSquares
+} from './array1';
 
 // 26. 删除有序数组中的重复项
 
@@ -376,4 +376,14 @@ export const testIsBoomerang = () => {
   const points2 = [[1, 1], [2, 2], [3, 3]];
   console.log('points=', points2);
   console.log('结果为：', isBoomerang(points2));
+};
+// 977. 有序数组的平方
+
+export const testSortedSquares = () => {
+  const nums1 = [-4, -1, 0, 3, 10];
+  console.log('nums=', nums1);
+  console.log('结果为：', sortedSquares(nums1));
+  const nums2 = [-7, -3, 2, 3, 11];
+  console.log('nums=', nums2);
+  console.log('结果为：', sortedSquares(nums2));
 };

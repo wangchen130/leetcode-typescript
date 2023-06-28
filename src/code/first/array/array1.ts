@@ -598,3 +598,27 @@ export function isBoomerang(points: number[][]): boolean {
   const vector2 = [x3 - x1, y3 - y1];
   return vector1[0] * vector2[1] - vector1[1] * vector2[0] !== 0;
 }
+
+/**
+ * @description 977. 有序数组的平方
+ * 以 [-7, -3, 2, 3, 11] 为例： 平方后 [49, 9, 4, 9, 121]，由此可见，最大值必定在左右两边取得，越向中间越小
+ * 所以定义左右指针，比较左右指针对应的值的平方的大小，取较大的一个从新数组的右边开始更新即可，就能得到一个从小到达排列的数组
+ * @param nums
+ */
+export function sortedSquares(nums: number[]): number[] {
+  const len = nums.length;
+  const ans = new Array(len).fill(0);
+  let index = len - 1;
+  for (let left = 0, right = len - 1; left <= right;) {
+    const leftSquare = nums[left] ** 2;
+    const rightSquare = nums[right] ** 2;
+    if (leftSquare > rightSquare) {
+      ans[index--] = leftSquare;
+      left++;
+    } else {
+      ans[index--] = rightSquare;
+      right--;
+    }
+  }
+  return ans;
+}

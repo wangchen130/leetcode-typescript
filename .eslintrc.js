@@ -67,8 +67,6 @@ module.exports = {
     'prefer-template': 2,
     'no-debugger': 1,
     'no-async-promise-executor': 0,
-    'arrow-body-style': [0, 'never'],
-    'arrow-parens': 0,
     'prefer-const': 0,
     'quote-props': 2,
     'object-shorthand': 0,
@@ -103,6 +101,8 @@ module.exports = {
     'space-before-function-paren': 0,
     'import/extensions': 0,
     'generator-star-spacing': ['error', 'before'],
+    'max-classes-per-file': 0,
+    'operator-assignment': 0
   },
   parser: '@typescript-eslint/parser',
   parserOptions: {

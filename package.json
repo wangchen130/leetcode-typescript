@@ -14,11 +14,6 @@
     "eslint": "npx eslint --ext .tsx --ext .ts src -c ./.eslintrc.js --ignore-pattern node_modules/",
     "eslint:fix": "npx eslint --ext .tsx --ext .ts src -c ./.eslintrc.js --ignore-pattern node_modules/ --fix"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run eslint"
-    }
-  },
   "author": "wangchen130",
   "license": "ISC",
   "browserslist": [

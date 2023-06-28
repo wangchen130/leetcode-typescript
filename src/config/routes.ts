@@ -11,27 +11,52 @@ export interface RouteItemType {
   childRoutes?: RouteItemType[];
 }
 
-const portalRoutes: RouteItemType[] = [
-  {
-    path: '/',
-    component: () =>
-      import(
-        /* webpackChunkName: 'async-index' */
-        'src/pages/index'
-      ),
-  },
-];
-
 const adminRoutes: RouteItemType[] = [
   {
-    path: '/leetcode',
+    path: '/first',
     childRoutes: [
       {
-        path: '/array',
-        component: () => import('src/pages/array'),
+        path: '/array1',
+        component: () => import('src/pages/first/array1'),
+      },
+      {
+        path: '/array2',
+        component: () => import('src/pages/first/array2'),
+      },
+      {
+        path: '/linkedList',
+        component: () => import('src/pages/first/linkedList'),
+      },
+      {
+        path: '/hashTable',
+        component: () => import('src/pages/first/hashTable'),
+      },
+      {
+        path: '/string',
+        component: () => import('src/pages/first/string'),
+      },
+      {
+        path: '/stackAndQueue',
+        component: () => import('src/pages/first/stackAndQueue'),
+      },
+      {
+        path: '/binaryTree',
+        component: () => import('src/pages/first/binaryTree'),
+      },
+      {
+        path: '/backtrack',
+        component: () => import('src/pages/first/backtrack'),
+      },
+      {
+        path: '/greedy',
+        component: () => import('src/pages/first/greedy'),
+      },
+      {
+        path: '/dynamicProgramming',
+        component: () => import('src/pages/first/dynamicProgramming'),
       },
     ],
   },
 ];
 
-export { portalRoutes, adminRoutes };
+export { adminRoutes };

@@ -20,16 +20,15 @@ import {
   testIsStraight,
   testCheckStraightLine,
   testDominantIndex,
-  testAddToArrayForm, testNextGreatestLetter, testMaxSubsequence, testIsBoomerang,
-} from 'src/code/array/test';
+  testAddToArrayForm, testNextGreatestLetter, testMaxSubsequence, testIsBoomerang, testSortedSquares,
+} from 'src/code/first/array/array1Test';
 
-const { Paragraph, Title } = Typography;
+const { Paragraph } = Typography;
 
 const Comp: React.FC = () => {
   return (
     <Collapse defaultActiveKey={[1, 2]}>
       <Collapse.Panel key={1} header="测试代码">
-        <Title level={5}>简单</Title>
         <Button style={{ marginRight: 10 }} onClick={testRemoveDuplicates}>26. 删除有序数组中的重复项</Button>
         <Button style={{ marginRight: 10 }} onClick={testRemoveElement}>27. 移除元素</Button>
         <Button style={{ marginRight: 10 }} onClick={testSearchInsert}>35. 搜索插入位置</Button>
@@ -53,10 +52,10 @@ const Comp: React.FC = () => {
         <Button style={{ marginRight: 10 }} onClick={testNextGreatestLetter}>744. 寻找比目标字母大的最小字母</Button>
         <Button style={{ marginRight: 10 }} onClick={testMaxSubsequence}>2099. 找到和最大的长度为 K 的子序列</Button>
         <Button style={{ marginRight: 10 }} onClick={testIsBoomerang}>1037. 有效的回旋镖</Button>
+        <Button style={{ marginRight: 10 }} onClick={testSortedSquares}>977. 有序数组的平方</Button>
       </Collapse.Panel>
       <Collapse.Panel key={2} header="题目">
         <Typography>
-          <Title level={5}>简单</Title>
           <Paragraph>
             <ol>
               <li>
@@ -172,6 +171,11 @@ const Comp: React.FC = () => {
               <li>
                 <Button type="link" href="https://leetcode.cn/problems/valid-boomerang/" target="_blank">
                   1037. 有效的回旋镖
+                </Button>
+              </li>
+              <li>
+                <Button type="link" href="https://leetcode.cn/problems/squares-of-a-sorted-array/" target="_blank">
+                  977. 有序数组的平方
                 </Button>
               </li>
             </ol>
