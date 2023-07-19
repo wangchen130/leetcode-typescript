@@ -651,21 +651,44 @@ export function maxProfit1(prices: number[], fee: number): number {
 
 }
 /**
- * @description 300. 最长递增子序列
+ * @description 300. 最长递增子序列  nums = [10,9,2,5,3,7,101,18]
+ * 1. dp 数组的含义：dp[i]: 以 nums[i] 为结尾的 nums 数组的最长递增子序列的长度为 dp[i]
+ * 2. 递推公式：dp[i] = Math.max(dp[j] + 1, dp[i])
+ *    为什需要求 dp[j] + 1 和 dp[i]中的最大值：当遍历到下标 i 时，需要用变量 j 去再遍历 i 之前的所有元素，因为 dp 数组存的是最长递增子序列的长度，
+ *    如果 nums[i] > nums[j], 那么 dp[i] 要么等于 dp[j] + 1，要么等于当前值 dp[i]，所以需要求这两个值中的最大值，以 nums = [10,9,2,5,3,7,101,18] 为例，
+ *    当遍历到 101 时，这时需要用 j 遍历 101 前的所有元素，当 j 遍历 10 时，101 大于 10，这时dp[j] + 1 = 1 + 1 = 2，dp[i] = 1，所以求出 dp[i] = 2,
+ *    当 j 遍历 7 时，这时 dp[j] = dp[5] = 3,dp[j] + 1 = 4,dp[i] = 3,所以求出 dp[i] = 4
+ * 3. 初始化 dp 数组：所有元素都初始化为 1
+ * 4. 遍历顺序：从前往后遍历
  * @param nums
  */
 export function lengthOfLIS(nums: number[]): number {
 
 }
 /**
- * @description 674. 最长连续递增序列
+ * @description 674. 最长连续递增序列 nums = [1,3,5,4,7]
+ * 1. dp 数组的含义：dp[i]：以 i 为结尾的 nums 数组的最长连续递增序列的长度为 dp[i]
+ * 2. 递推公式：
+ *    if(nums[i] > nums[i - 1]){
+ *      dp[i] = dp[i - 1] + 1
+ *    }
+ * 3. 初始化 dp 数组：所有元素都初始化为 1
+ * 4. 遍历顺序：从前往后遍历
  * @param nums
  */
 export function findLengthOfLCIS(nums: number[]): number {
 
 }
 /**
- * @description 718. 最长重复子数组
+ * @description 718. 最长重复子数组 nums1 = [1,2,3,2,1], nums2 = [3,2,1,4,7]
+ * 思路：要想找出两个数组的公共子数组，那么就需要一个二维数组来保存状态，例如：当 nums1 遍历到第一个元素 1 时，nums2 遍历到 3 时，不相等，这时应记录 dp[1][1] = 0,
+ * nums2 遍历到 2 时，不相等，应记录 dp[1][2] = 0。nums2 遍历到 1 时，相等，这时 dp[1][3] = dp[0][2] + 1 = 1 .....
+ * 当 nums1 遍历到第五个元素 1 ，nums2 遍历到第三个元素 1 时，因为相等，那么 dp[i][j] = dp[i - 1][j - 1] + 1，因为是求的子数组，子数组是连续的，nums1 的 1 和 nums2 的 1 相等，
+ * 那么就要同时往前退一位，比较 nums[i - 1] 和 nums2[j - 1]，因为 dp 数组存放的是最长的重复数组的长度，所以向前退一位的重复数组的长度为 dp[i - 1][j - 1]
+ * 1. dp 数组的含义：dp[i][j]：以 i - 1 为结尾的 nums1 和以 j - 1 为结尾的 nums2 的最长重复子数组的长度为 dp[i][j]
+ * 2. 递推公式：if(nums1[i - 1] === nums[j - 1]) dp[i][j] = dp[i - 1][j - 1] + 1
+ * 3. 初始化 dp 数组：全部初始化为 0 即可
+ * 4. 遍历顺序：先遍历 nums1 或先遍历 nums2 都可以
  * @param nums1
  * @param nums2
  */
@@ -674,7 +697,21 @@ export function findLength(nums1: number[], nums2: number[]): number {
 }
 
 /**
- * @description 1143. 最长公共子序列
+ * @description 1143. 最长公共子序列 text1 = "abcde", text2 = "ace"
+ * 思路：公共序列不一定是连续的，那么就与公共数组的求解方式不同，公共数组只关注两个数组的值是否相等，相等就同时向前退一位，使用前一位的长度进行加1，而求解公共序列时，
+ * 如 i 遍历 text1 到 c，j 遍历 text2 到 e 时，此时c 和 e 不相等，这时，就有两种情况：
+ *    1. 不看 ace 串的 e，因为 e 和 c 已经确定不相等了，那么 abc 和 ace 的最长公共子序列的长度就与 abc 和 ac 的最长公共子序列的长度相等。
+ *    2.不看 abc 串的 c，这时 abc 和 ace 的最长公共子序列就与 ab 和 ace 的最长公共子序列相等，那么这时最长公共子序列的长度就是求这两种情况的最大值，
+ * 而 abc 和 ac 的最长公共子序列长度为 dp[i][j - 1]，ab 和 ace 的最长公共子序列的长度为 dp[i - 1][j]，则此时 dp[i][j] = Math.max(dp[i][j - 1], dp[i - 1][j])
+ * 1. dp 数组的含义：dp[i][j]：以 i - 1 为结尾的 text1 和 以 j - 1 为结尾的 text2 的最长公共子序列的长度为 dp[i][j]
+ * 2. 递推公式：
+ *    if(text1[i - 1] === text2[j -1]){
+ *      dp[i][j] = dp[i - 1][j - 1] + 1
+ *    } else {
+ *      dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1])
+ *    }
+ * 3. 初始化 dp 数组：全部初始化为 0 即可
+ * 4. 先遍历 text1 或先遍历 text2 都可以
  * @param text1
  * @param text2
  */
@@ -684,6 +721,16 @@ export function longestCommonSubsequence(text1: string, text2: string): number {
 
 /**
  * @description 1035. 不相交的线
+ * 思路：要想所画的线不想交，那么可以转化为求两个数组的最长公共子序列，只要是公共子序列，那么所画的线就不会相交，因为子序列是保证顺序是一致的，顺序一致，那么就不会相交
+ * 1. dp 数组的含义：dp[i][j]：以 i -1 为结尾的 nums1 和以 j - 1 为结尾的 nums2 的最长公共子序列的长度为 dp[i][j]
+ * 2. 递推公式：
+ *    if(nums1[i - 1] === nums2[j - 1]){
+ *      dp[i][j] = dp[i - 1][j - 1] + 1
+ *    } else {
+ *      dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1])
+ *    }
+ * 3. 初始化 dp 数组：全部初始化为 0 即可
+ * 4. 遍历顺序：先遍历 nums1 或先遍历 nums2 都可以
  * @param nums1
  * @param nums2
  */
@@ -691,7 +738,15 @@ export function maxUncrossedLines(nums1: number[], nums2: number[]): number {
 
 }
 /**
- * @description 53. 最大子数组和
+ * @description 53. 最大子数组和 nums = [-2,1,-3,4,-1,2,1,-5,4]
+ * 思路：求子数组和，那么在遍历数组时，每次遍历的值 nums[i]，都会有两种情况：
+ * 1. 仍然使用前面的累加值，那么在当前位置所求的子数组和就 等于前面的累加值加上本次遍历的值 nums[i]
+ * 2. 使用前面的累加值，那么当前位置所求的子数组的和就 等于本次遍历的值 nums[i]
+ * 因为要求最大子数组和，所以就取这两种情况的最大值即可
+ * 1. dp 数组的含义：dp[i]：以 nums[i] 为结尾的 nums 数组的最大子数组和为 dp[i]
+ * 2. 递推公式：dp[i] = Math.max(dp[i -1] + nums[i], nums[i])
+ * 3. 初始化 dp 数组：dp[0] = nums[0]，其他元素初始化为 0 即可
+ * 4. 遍历顺序：从前往后遍历
  * @param nums
  */
 export function maxSubArray(nums: number[]): number {
@@ -699,7 +754,18 @@ export function maxSubArray(nums: number[]): number {
 }
 
 /**
- * @description 392. 判断子序列
+ * @description 392. 判断子序列 s = "abc", t = "ahbgdc"
+ * 思路：只需要求出两个字符串的最长公共子序列，然后判断最长公共子序列的长度是否等于字符串 s 的长度即可，但与直接求两个字符串最长公共子序列不同的是，当遇到两个字符不相等时，
+ * 不用求两个字符串分别回退一位后最长公共子序列的最大值，只需要字符串 t 回退即可，因为 s 是不能删除的，s 是要作为子序列的
+ * 1. dp 数组的含义：dp[i][j]：以 i - 1 为结尾的 s 和以 j - 1 为结尾的 t 的最长公共子序列的长度为 dp[i][j]
+ * 2. 递推公式：
+ *    if(s[i - 1] === t[j - 1]){
+ *      dp[i][j] = dp[i - 1][j - 1] + 1
+ *    } else {
+ *      dp[i][j] = dp[i][j - 1]
+ *    }
+ * 3. 初始化 dp 数组：全部初始化为 0 即可
+ * 4. 遍历顺序：先遍历 s 或先遍历 t 都可以，从前往后遍历
  * @param s
  * @param t
  */
@@ -707,7 +773,24 @@ export function isSubsequence(s: string, t: string): boolean {
 
 }
 /**
- * @description 115. 不同的子序列
+ * @description 115. 不同的子序列 s = "babgbag", t = "bag"
+ * 思路：题目的本质就是，删除字符串 s 中的元素，使 s 等于 t，有多少种删除元素的方式。那么 dp 数组存放的就是有删除元素的方式数，那如何模拟删除 s 中元素的操作呢？
+ * 以 s = 'bagg', t = 'bag' 为例子，当 i = 4，j = 3，即遍历到s[3] 和 t[2] 时，这时 s[3] = t[2]，
+ * 1）如果考虑使用 s[3]，因为这两个字符相等，这时就不用删除元素，不用删除元素的话，那么就等于之前的方式数，则 dp[i][j] = dp[4][3] = dp[3][2]，
+ * 2) 如果不考虑使用 s[3]，即模拟删除 s[3]，使用 s[2] 进行匹配，则dp[i][j] = dp[4][3] = dp[3][3]，而总共的方式数就等于这两种情况相加，即 dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j]
+ * 而如果 两个字符不相等，那么就模拟删除 s 字符串中当前的元素，那么 dp[i][j] = dp[i - 1][j]
+ * 1. dp 数组的含义： dp[i][j]：以 i - 1 为结尾的字符串 s ，以 j - 1 为结尾的字符串 t，删除字符串 s 中的元素，共有 dp[i][j] 种方式使 s 等于 t
+ * 2. 递推公式：
+ *    if(s[i - 1] === t[j -1]) {
+ *      dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j]
+ *    } else {
+ *      dp[i][j] = dp[i - 1][j]
+ *    }
+ * 3. 初始化 dp 数组：
+ *    dp[i][0]：t 为空字符串，那么就只有一种方法使 s = t，那就是删除 s 中的所有元素，使 s 也为一个空字符串，所以 dp[i][0] = 1
+ *    dp[0][j]：s 为空子字符串，那么无论如何进行删除，s 也不可能等于 t ，所以 dp[0][j] = 0
+ *    dp[0][0]：s 和 t 都为空字符串，那么只有一种方式使 s = t，所以 dp[0][0] = 1
+ * 4. 遍历顺序：从左到右，从上到下
  * @param s
  * @param t
  */
@@ -716,7 +799,25 @@ export function numDistinct(s: string, t: string): number {
 }
 
 /**
- * @description 583. 两个字符串的删除操作
+ * @description 583. 两个字符串的删除操作  word1 = "sea", word2 = "eat"
+ * 思路1：求两个字符串的最长公共子序列，那么求出的最长公共子序列就是这两个字符串进行删除操作后相等的字符串，那么就只需要从两个字符串中将最长公共子序列以外的字符删除调即可，
+ *        如果求出的最长公共子序列的长度为 sLen ，那么，word1 中需要删除的字符个数为 word1.length - sLen ，word2 中需要删除的字符的个数为 word2.length - sLen
+ *        所以最少的操作次数为： word1.length - sLen + word2.length - sLen =  word1.length + word2.length - 2 * sLen
+ * 思路2：dp 数组存放的是最少的操作次数，用 i 遍历 word1，用 j 遍历 word2，那么如果 word1[i] === word2[j] 时，这时两个字符相等，则无需进行删除操作，那么这时的最少操作数
+ *       就等于两个字符串前一个字符的最少操作数，即 dp[i][j] = dp[i - 1][j - 1]，如果 word1[i] !== word2[j] ，即两个字符不相等，那么这时就要进行删除操作，删除就分为 3 种情况
+ *       1）删除 word1[i]：不考虑 word1[i] 时，最小操作数为 dp[i - 1][j]，因为要进行删除操作，所以操作数需要加 1，即为 dp[i - 1][j] + 1
+ *       2）删除 word2[j]：不考虑 word2[j] 时，最小操作数为 dp[i][j - 1]，因为要进行删除操作，所以操作数需要加 1，即为 dp[i][j - 1] + 1
+ *       3）同时删除 word1[i] 和 word2[j]：那么操作数 就为 dp[i - 1][j - 1] + 2
+ * 此时，只需要求这三种情况的最小值即可，同时，因为递推公司的关系，第 3 种情况其实已经包含在前两种情况之中，所以第 3 种情况实际可以不用考虑，可以进行优化
+ * 1. dp 数组的含义：dp[i][j]：以 i - 1 为结尾的字符串 word1 和以 j - 1 为结尾的字符串 word2 ，删除两个字符串中的元素使两个字符串相等，最小的操作数为 dp[i][j]
+ * 2. 递推公式：
+ *    if(word1[i - 1] === word2[j - 1]) {
+ *      dp[i][j] = dp[i - 1][j - 1]
+ *    } else {
+ *      dp[i][j] = Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + 2)
+ *    }
+ * 3. 初始化 dp 数组：dp[i][0] = i，dp[0][j] = j
+ * 4. 遍历顺序：先遍历word1，再遍历 word2 ，从上到下，从左到右
  * @param word1
  * @param word2
  */
@@ -725,7 +826,26 @@ export function minDistance(word1: string, word2: string): number {
 }
 
 /**
- * @description 72. 编辑距离
+ * @description 72. 编辑距离 word1 = "horse", word2 = "ros"
+ * 思路：要想使两个字符串相等，那么可以进行增加、删除和替换字符操作，而删除和增加，实际上效果是一样的，可以在 word1 中删除字符，也可以在 word2 中增加字符，例如：
+ * 可以将 'horse' 中的 h 删除掉，也可以在 'ros' 的前面增加一个 h ，两者达到的效果是一样的。那么 dp 数组存放的就是 最少的操作数，使用 i 遍历 word1，使用 j 遍历 word2，
+ * 当 word1[i - 1] === word2[j - 1] 时，这时两个字符相等，不需要进行任何操作，只是的最小操作数就是不考虑 word1[i] 和 word2[j] 的最小操作数，即 dp[i][j] = dp[i - 1][j - 1]
+ * 当 word1[i - 1] !== word2[j - 1] 时，这时有 3 种情况：
+ *  1）删除 word1[i - 1]：不考虑 word1[i - 1] 时，最下操作数为 dp[i - 1][j]，需要进行删除操作，则操作数加 1，即为 dp[i - 1][j] + 1
+ *  2）删除 word2[j - 1]：则最小操作数为 dp[i][j - 1] + 1
+ *  3）替换字符：即将 word1[i - 1] 替换为 word2[j - 1] 或将 word2[j - 1] 替换为 word1[i - 1]，但是无论进行那种替换，都只需要进行一步操作，而操作完成后，
+ *    word1[i - 1] 就等于了 word2[j - 1]，这时就不需要考虑这两个字符了，然而不考虑这两个字符的最小操作数为 dp[i - 1][j - 1]，进行 1 步操作，
+ *    那么最少操作数就为 dp[i - 1][j - 1] + 1
+ * 这时，只需要求这 3 种情况的最小值即可
+ * 1. dp 数组的含义：dp[i][j]：以 i - 1 为结尾的 word1 和以 j - 1 为结尾的 word2，每次可进行添加、删除和替换操作中的一种操作，是两个字符串相等的最少操作数为 dp[i][j]
+ * 2. 递推公式：
+ *    if(word1[i - 1] === word2[j - 1]){
+ *      dp[i][j] = dp[i - 1][j - 1]
+ *    } else {
+ *      dp[i][j] = Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + 1)
+ *    }
+ * 3. 初始化 dp 数组：dp[i][0] = i，dp[0][j] = j
+ * 4. 遍历顺序：先遍历 word1 ，再遍历 word2 ，从上到下，从左到右
  * @param word1
  * @param word2
  */
