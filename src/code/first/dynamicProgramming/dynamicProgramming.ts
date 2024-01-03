@@ -853,7 +853,23 @@ export function minDistance1(word1: string, word2: string): number {
 
 }
 /**
- * @description 647. 回文子串
+ * @description 647. 回文子串 s = "aaa"
+ * 思路：判断是否为回文子串，可以使用一个二维 dp 数组来保存子串的状态，即可以用 dp[i][j] 表示以 i 为开头，以 j（j >= i） 为结尾的字符串是否为回文串。那么，
+ * 当 s[i] === s[j] 时：
+ *  1）如果 i === j 时，即表示单子字符，单子字符为回文串，那么 dp[i][j] = true
+ *  2) 如果 j === i + 1，此时表示的字符串为由同一个字符组成的长度为 2 的字符串，如：'aa','bb','cc'，那么 dp[i][j] = true
+ *  3) 如果j > i + 1，且i + 1 到 j - 1 的之间的字符串为回文串，即 dp[i + 1][j - 1] === true，那么以 i 为开头，以 j 为结尾的字符串就为回文串，即 dp[i][j] = true
+ * 1. dp 数组的含义：dp[i][j]：以 i 为开头，j 为结尾的字符串为回文串时，s[i][j] 为 true，否则为 false
+ * 2. 递推公式：
+ * if(s[i] === s[j]) {
+ *   if(j - i <= 1) {
+ *      dp[i][j] = true
+ *   } else if(dp[i + 1][j - 1]) {
+ *    dp[i][j] = true
+ *   }
+ * }
+ * 3. 初始化 dp 数组：全部初始化为 false
+ * 4. 遍历顺序：从左到右，从下到上
  * @param s
  */
 export function countSubstrings(s: string): number {
@@ -861,7 +877,23 @@ export function countSubstrings(s: string): number {
 }
 
 /**
- * @description 516. 最长回文子序列
+ * @description 516. 最长回文子序列 s = "bbbab"
+ * 思路：判断回文子序列，同样需要一个二维的 dp 数组来存放状态，dp[i][j] 表示以 i 开头，以 j 结尾的字符串的最长回文子序列的长度为 dp[i][j]，那么
+ * 1） 当 s[i] === s[j] 时，s[i] 和 s[j] 中间的字符串为 [i+1, j-1]，而且这段字符串的最长回文子序列的长度为 dp[i+1][j-1]，因为 s[i] 与 s[j] 相等，
+ *    即首尾相同，那么字符串 [i, j] 的最长回文子序列的长度就等于中间字符串的最长回文子序列的长度加上首尾两个字符的个数，即 +2，即 dp[i][j] = dp[i + 1][j - 1] + 2
+ * 2） 当 s[i] !== s[j] 时，那么就要分别 s[i] 与 s[j]，
+ *      1. 当考虑 s[i] 不考虑 s[j] 时，即字符串 [i, j] 的最长回文子序列的长度就是字符串 [i, j - 1] 最长回文子序列的长度，即 dp[i][j] = dp[i][j - 1]
+ *      2. 当考虑 s[j] 不考虑 s[i] 时，即字符串 [i, j] 的最长回文子序列的长度就是字符串 [i + 1, j] 最长回文子序列的长度，即 dp[i][j] = dp[i + 1][j]
+ * 此时，最长回文子序列的长度就是这两种情况的最大值，即 dp[i][j] = Math.max(dp[i][j - 1], dp[i + 1][j])
+ * 1. dp 数组的含义：dp[i][j]：以 i 为开头，j(j >= i)为结尾的字符串的最长回文子序列的长度为 dp[i][j]
+ * 2. 递推公式：
+ *    if(s[i] === s[j]) {
+ *        dp[i][j] = dp[i + 1][j - 1] + 2
+ *    } else {
+ *      dp[i][j] = Math.max(dp[i][j - 1], dp[i + 1][j])
+ *    }
+ * 3. 初始化 dp 数组：当 i = j 时，初始化为 1，其他初始化为 0
+ * 4. 遍历顺序：从下到上，从左到右
  * @param s
  */
 export function longestPalindromeSubseq(s: string): number {

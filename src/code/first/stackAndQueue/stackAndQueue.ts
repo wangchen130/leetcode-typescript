@@ -101,7 +101,14 @@ export function isValid(s: string): boolean {
 
   return stack.length === 0;
 }
-// 1047. 删除字符串中的所有相邻重复项
+
+/**
+ * @description 1047. 删除字符串中的所有相邻重复项 s = "abbaca"
+ * 思路：使用栈进行解答，因为会存在 s = "abbaca" 这种情况，当删除了 bb 两个字符后，第一个字符 a 和 第四个字符 a 就会变成相邻的字符，这时又需要将两个 a 删除，
+ * 所以，可以使用栈这种数据结构，当依次将 a，b 压入栈后，当准备将第三个字符 b 压入栈时，发现该字符与栈顶的字符相同，这时将栈顶的字符弹出栈，然后开始下一轮循环，
+ * 当准备将第四个字符 a 压入栈时，发现该字符与栈顶字符 a 相同，这时再将栈顶元素弹出栈，这样就能达到删除字符串中所有相邻重复项的目的
+ * @param s
+ */
 export function removeDuplicates(s: string): string {
   const len = s.length;
   const stack: string[] = [];
@@ -133,11 +140,21 @@ export function evalRPN(tokens: string[]): number {
   }
   return stack.pop();
 }
-// 239. 滑动窗口最大值
+
+/**
+ * @description 239. 滑动窗口最大值 nums = [1,3,-1,-3,5,3,6,7], k = 3
+ * @param nums
+ * @param k
+ */
 export function maxSlidingWindow(nums: number[], k: number): number[] {
 
 }
-// 347. 前 K 个高频元素
+
+/**
+ * @description 347. 前 K 个高频元素 nums = [1,1,1,2,2,3], k = 2
+ * @param nums
+ * @param k
+ */
 export function topKFrequent(nums: number[], k: number): number[] {
 
 }
